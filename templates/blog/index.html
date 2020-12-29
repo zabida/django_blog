@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    {% for post in post_list %}
+        <article class="post post-1">
+            <header class="entry-header">
+                <h1 class="entry-title">
+                    <a href={{ post.get_absolute_url }}>{{ post.title }}</a>
+                </h1>
+                <div class="entry-meta">
+                    <span class="post-category"><a href="#">{{ post.category.name }}</a></span>
+                    <span class="post-date"><a href="#"><time class="entry-date"
+                                                              datetime={{ post.created_time }}>{{ post.created_time }}</time></a></span>
+                    <span class="post-author"><a href="#">{{ post.author }}</a></span>
+                    <span class="comments-link"><a href="#">{{ post.comment_nu }} 评论</a></span>
+                    <span class="views-count"><a href="#">{{ post.views }} 阅读</a></span>
+                </div>
+            </header>
+            <div class="entry-content clearfix">
+                <p>{{ post.excerpt }}</p>
+                <div class="read-more cl-effect-14">
+                    <a href={{ post.get_absolute_url }} class="more-link">继续阅读 <span
+                            class="meta-nav">→</span></a>
+                </div>
+            </div>
+        </article>
+    {% empty %}
+        <div class="no-post">暂时还没有发布的文章</div>
+    {% endfor %}
+    <!-- 简单分页效果
+    <div class="pagination-simple">
+        <a href="#">上一页</a>
+        <span class="current">第 6 页 / 共 11 页</span>
+        <a href="#">下一页</a>
+    </div>
+    -->
+
+    <div class="pagination">
+        <ul>
+        <a href="?page_nu={{ 1 }}">首页</a>
+            {% if page.previous_page %}
+                <a href="?page_nu={{ page.previous_page }}">上一页</a>
+            {% endif %}
+            <span class="current">第 {{ page.page_nu }} 页 / 共 {{ page.total }} 页</span>
+            {% if page.next_page %}
+                <a href="?page_nu={{ page.next_page }}">下一页</a>
+            {% endif %}
+        <a href="?page_nu={{ page.total_page }}">尾页</a>
+        </ul>
+    </div>
+{% endblock main %}
+
+
+{% block toc %}
+
+{% endblock toc %}
